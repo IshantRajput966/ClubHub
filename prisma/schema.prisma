@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  author    String
+  content   String
+  imageUrl  String?
+  videoUrl  String?
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  date        String
+  time        String
+  location    String
+  organizer   String
+  capacity    Int             @default(50)
+  attendees   EventAttendee[]
+  clubEvents  ClubEvent[]
+  imageUrl    String?
+  createdAt   DateTime        @default(now())
+}
+
+model EventAttendee {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  username  String
+  status    String   @default("going")
+  createdAt DateTime @default(now())
+
+  @@unique([eventId, username])
+}
+
+model Member {
+  id       String   @id @default(cuid())
+  username String   @unique
+  email    String?
+  role     String   @default("member")
+  joinDate DateTime @default(now())
+  bio      String?
+  avatar   String?
+  isActive Boolean  @default(true)
+}
+
+model Announcement {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  author    String
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+}
+
+model Club {
+  id           String        @id @default(cuid())
+  name         String        @unique
+  description  String
+  domain       String
+  logoUrl      String?
+  bannerUrl    String?
+  createdBy    String
+  members      ClubMember[]
+  events       ClubEvent[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  joinRequests JoinRequest[]
+}
+
+model ClubMember {
+  id       String   @id @default(cuid())
+  clubId   String
+  club     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  username String
+  role     String   @default("member")
+  joinedAt DateTime @default(now())
+
+  @@unique([clubId, username])
+}
+
+model ClubEvent {
+  id        String   @id @default(cuid())
+  clubId    String
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([clubId, eventId])
+}
+
+model JoinRequest {
+  id        String   @id @default(cuid())
+  clubId    String
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  username  String
+  message   String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([clubId, username])
+}
