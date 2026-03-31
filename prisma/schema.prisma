@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  author    String
+  content   String
+  imageUrl  String?
+  videoUrl  String?
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  date        String
+  time        String
+  location    String
+  organizer   String
+  capacity    Int             @default(50)
+  imageUrl    String?
+  createdAt   DateTime        @default(now())
+  clubEvents  ClubEvent[]
+  attendees   EventAttendee[]
+}
+
+model EventAttendee {
+  id        String   @id @default(cuid())
+  eventId   String
+  username  String
+  status    String   @default("going")
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, username])
+}
+
+model Member {
+  id       String   @id @default(cuid())
+  username String   @unique
+  email    String   @unique
+  role     String   @default("member")
+  joinDate DateTime @default(now())
+  bio      String?
+  avatar   String?
+  isActive Boolean  @default(true)
+  password String?
+  phone    String?  // Twilio integration
+}
+
+model Announcement {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  author    String
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  clubId    String?
+  pinned    Int?      @default(0)
+  clubName  String?
+}
+
+model Club {
+  id              String        @id @default(cuid())
+  name            String        @unique
+  description     String
+  domain          String
+  logoUrl         String?
+  bannerUrl       String?
+  status          String        @default("approved")
+  facultyOverseer String?
+  rejectionReason String?
+  createdBy       String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  events          ClubEvent[]
+  members         ClubMember[]
+  joinRequests   JoinRequest[]
+}
+
+model ClubMember {
+  id       String   @id @default(cuid())
+  clubId   String
+  username String
+  role     String   @default("member")
+  joinedAt DateTime @default(now())
+  club     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, username])
+}
+
+model ClubEvent {
+  id        String   @id @default(cuid())
+  clubId    String
+  eventId   String
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, eventId])
+}
+
+model JoinRequest {
+  id        String   @id @default(cuid())
+  clubId    String
+  username  String
+  name      String?  // Twilio requirement
+  branch    String?  // Twilio requirement
+  year      String?  // Twilio requirement
+  message   String?
+  type      String   @default("join") // "join" or "leave"
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, username])
+}
+
+model CompetitionRegistration {
+  id              String  @id @default(cuid())
+  competitionId   String
+  competitionName String
+  clubId          String?
+  clubName        String?
+  name            String
+  email           String
+  phone           String?
+  teamName        String?
+  status          String? @default("pending")
+  createdAt       String? @default("datetime('now')")
+}
+
+model LeaderNotification {
+  id          String  @id @default(cuid())
+  forUsername String
+  type        String
+  title       String
+  body        String
+  read        Int?    @default(0)
+  createdAt   String? @default("datetime('now')")
+}
+
+model LeaderSmsReply {
+  id         String   @id @default(cuid())
+  message    String
+  fromNumber String
+  createdAt  DateTime @default(now())
+}

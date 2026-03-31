@@ -1,0 +1,42 @@
+# ClubHub (Next.js + TypeScript) - Setup Requirements
+
+# 1) Node.js (required)
+#    - Tested with Node.js 20.x
+#    - Install from https://nodejs.org/
+
+# 2) Package Manager
+#    - Uses npm (bundled with Node.js)
+
+# 3) Install Dependencies
+#    From the project root (this folder), run:
+#      npm install
+
+# 4) Run in Development
+#      npm run dev
+
+# 5) Build for Production
+#      npm run build
+#      npm start
+
+# 6) Database (SQLite + Prisma)
+#    - The project uses Prisma with SQLite.
+#    - Migrations are stored under prisma/migrations.
+#    - To apply migrations (after cloning), run:
+#      npx prisma migrate deploy
+#    - To open Prisma Studio:
+#      npx prisma studio
+
+# 7) Environment Variables
+#    - Create a .env file in the project root with any required variables.
+#    - Example variables (see .env.example if present, otherwise create as needed):
+#        DATABASE_URL=file:./dev.db
+#        NEXTAUTH_SECRET=<your-secret>
+#        NEXTAUTH_URL=http://localhost:3000
+#        GROQ_API_KEY=<your-groq-key>
+#        OPENAI_API_KEY=<your-openai-key>
+#        GOOGLE_API_KEY=<your-google-genai-key>
+
+# 8) Notes
+#    - This file is intentionally minimal; most dependencies are managed via package.json.
+#    - If you need to reproduce the exact dependency set, use:
+#        npm ci
