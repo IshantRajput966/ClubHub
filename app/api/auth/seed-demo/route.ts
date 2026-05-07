@@ -153,18 +153,24 @@ export async function POST(request: Request) {
 
     for (const announcement of announcements) {
       const club = await prisma.club.findFirst({ where: { name: announcement.clubName } })
-      await prisma.announcement.upsert({
-        where: { title: announcement.title },
-        update: {},
-        create: {
-          title: announcement.title,
-          content: announcement.content,
-          author: announcement.author,
-          clubId: club?.id,
-          clubName: announcement.clubName,
-        },
+      
+      // Check if announcement already exists for this club
+      const existing = await prisma.announcement.findFirst({
+        where: { title: announcement.title, clubId: club?.id },
       })
-      results.announcementsCreated.push(announcement.title)
+
+      if (!existing) {
+        await prisma.announcement.create({
+          data: {
+            title: announcement.title,
+            content: announcement.content,
+            author: announcement.author,
+            clubId: club?.id,
+            clubName: announcement.clubName,
+          },
+        })
+        results.announcementsCreated.push(announcement.title)
+      }
     }
 
     return NextResponse.json(
