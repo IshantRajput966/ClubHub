@@ -2,17 +2,5 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "env": {
-    "DATABASE_URL": {
-      "description": "PostgreSQL connection string"
-    },
-    "NEXTAUTH_SECRET": {
-      "description": "NextAuth secret key"
-    },
-    "NEXTAUTH_URL": {
-      "description": "Your app URL",
-      "default": "http://localhost:3000"
-    }
-  }
+  "framework": "nextjs"
 }
