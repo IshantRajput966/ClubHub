@@ -35,7 +35,7 @@ export type CompetitionRegistrationMinAggregateOutputType = {
   phone: string | null
   teamName: string | null
   status: string | null
-  createdAt: string | null
+  createdAt: Date | null
 }
 
 export type CompetitionRegistrationMaxAggregateOutputType = {
@@ -49,7 +49,7 @@ export type CompetitionRegistrationMaxAggregateOutputType = {
   phone: string | null
   teamName: string | null
   status: string | null
-  createdAt: string | null
+  createdAt: Date | null
 }
 
 export type CompetitionRegistrationCountAggregateOutputType = {
@@ -194,7 +194,7 @@ export type CompetitionRegistrationGroupByOutputType = {
   phone: string | null
   teamName: string | null
   status: string | null
-  createdAt: string | null
+  createdAt: Date
   _count: CompetitionRegistrationCountAggregateOutputType | null
   _min: CompetitionRegistrationMinAggregateOutputType | null
   _max: CompetitionRegistrationMaxAggregateOutputType | null
@@ -229,7 +229,7 @@ export type CompetitionRegistrationWhereInput = {
   phone?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
   teamName?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
   status?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
-  createdAt?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"CompetitionRegistration"> | Date | string
 }
 
 export type CompetitionRegistrationOrderByWithRelationInput = {
@@ -243,7 +243,7 @@ export type CompetitionRegistrationOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   teamName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type CompetitionRegistrationWhereUniqueInput = Prisma.AtLeast<{
@@ -260,7 +260,7 @@ export type CompetitionRegistrationWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
   teamName?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
   status?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
-  createdAt?: Prisma.StringNullableFilter<"CompetitionRegistration"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"CompetitionRegistration"> | Date | string
 }, "id">
 
 export type CompetitionRegistrationOrderByWithAggregationInput = {
@@ -274,7 +274,7 @@ export type CompetitionRegistrationOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   teamName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.CompetitionRegistrationCountOrderByAggregateInput
   _max?: Prisma.CompetitionRegistrationMaxOrderByAggregateInput
   _min?: Prisma.CompetitionRegistrationMinOrderByAggregateInput
@@ -294,7 +294,7 @@ export type CompetitionRegistrationScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"CompetitionRegistration"> | string | null
   teamName?: Prisma.StringNullableWithAggregatesFilter<"CompetitionRegistration"> | string | null
   status?: Prisma.StringNullableWithAggregatesFilter<"CompetitionRegistration"> | string | null
-  createdAt?: Prisma.StringNullableWithAggregatesFilter<"CompetitionRegistration"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"CompetitionRegistration"> | Date | string
 }
 
 export type CompetitionRegistrationCreateInput = {
@@ -308,7 +308,7 @@ export type CompetitionRegistrationCreateInput = {
   phone?: string | null
   teamName?: string | null
   status?: string | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type CompetitionRegistrationUncheckedCreateInput = {
@@ -322,7 +322,7 @@ export type CompetitionRegistrationUncheckedCreateInput = {
   phone?: string | null
   teamName?: string | null
   status?: string | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type CompetitionRegistrationUpdateInput = {
@@ -336,7 +336,7 @@ export type CompetitionRegistrationUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teamName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CompetitionRegistrationUncheckedUpdateInput = {
@@ -350,7 +350,7 @@ export type CompetitionRegistrationUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teamName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CompetitionRegistrationCreateManyInput = {
@@ -364,7 +364,7 @@ export type CompetitionRegistrationCreateManyInput = {
   phone?: string | null
   teamName?: string | null
   status?: string | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type CompetitionRegistrationUpdateManyMutationInput = {
@@ -378,7 +378,7 @@ export type CompetitionRegistrationUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teamName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CompetitionRegistrationUncheckedUpdateManyInput = {
@@ -392,7 +392,7 @@ export type CompetitionRegistrationUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teamName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CompetitionRegistrationCountOrderByAggregateInput = {
@@ -511,7 +511,7 @@ export type $CompetitionRegistrationPayload<ExtArgs extends runtime.Types.Extens
     phone: string | null
     teamName: string | null
     status: string | null
-    createdAt: string | null
+    createdAt: Date
   }, ExtArgs["result"]["competitionRegistration"]>
   composites: {}
 }
@@ -945,7 +945,7 @@ export interface CompetitionRegistrationFieldRefs {
   readonly phone: Prisma.FieldRef<"CompetitionRegistration", 'String'>
   readonly teamName: Prisma.FieldRef<"CompetitionRegistration", 'String'>
   readonly status: Prisma.FieldRef<"CompetitionRegistration", 'String'>
-  readonly createdAt: Prisma.FieldRef<"CompetitionRegistration", 'String'>
+  readonly createdAt: Prisma.FieldRef<"CompetitionRegistration", 'DateTime'>
 }
     
 
@@ -1156,6 +1156,7 @@ export type CompetitionRegistrationCreateManyArgs<ExtArgs extends runtime.Types.
    * The data used to create many CompetitionRegistrations.
    */
   data: Prisma.CompetitionRegistrationCreateManyInput | Prisma.CompetitionRegistrationCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1174,6 +1175,7 @@ export type CompetitionRegistrationCreateManyAndReturnArgs<ExtArgs extends runti
    * The data used to create many CompetitionRegistrations.
    */
   data: Prisma.CompetitionRegistrationCreateManyInput | Prisma.CompetitionRegistrationCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

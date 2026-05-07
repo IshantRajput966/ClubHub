@@ -41,7 +41,7 @@ export type LeaderNotificationMinAggregateOutputType = {
   title: string | null
   body: string | null
   read: number | null
-  createdAt: string | null
+  createdAt: Date | null
 }
 
 export type LeaderNotificationMaxAggregateOutputType = {
@@ -51,7 +51,7 @@ export type LeaderNotificationMaxAggregateOutputType = {
   title: string | null
   body: string | null
   read: number | null
-  createdAt: string | null
+  createdAt: Date | null
 }
 
 export type LeaderNotificationCountAggregateOutputType = {
@@ -198,7 +198,7 @@ export type LeaderNotificationGroupByOutputType = {
   title: string
   body: string
   read: number | null
-  createdAt: string | null
+  createdAt: Date
   _count: LeaderNotificationCountAggregateOutputType | null
   _avg: LeaderNotificationAvgAggregateOutputType | null
   _sum: LeaderNotificationSumAggregateOutputType | null
@@ -231,7 +231,7 @@ export type LeaderNotificationWhereInput = {
   title?: Prisma.StringFilter<"LeaderNotification"> | string
   body?: Prisma.StringFilter<"LeaderNotification"> | string
   read?: Prisma.IntNullableFilter<"LeaderNotification"> | number | null
-  createdAt?: Prisma.StringNullableFilter<"LeaderNotification"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"LeaderNotification"> | Date | string
 }
 
 export type LeaderNotificationOrderByWithRelationInput = {
@@ -241,7 +241,7 @@ export type LeaderNotificationOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   read?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type LeaderNotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -254,7 +254,7 @@ export type LeaderNotificationWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"LeaderNotification"> | string
   body?: Prisma.StringFilter<"LeaderNotification"> | string
   read?: Prisma.IntNullableFilter<"LeaderNotification"> | number | null
-  createdAt?: Prisma.StringNullableFilter<"LeaderNotification"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"LeaderNotification"> | Date | string
 }, "id">
 
 export type LeaderNotificationOrderByWithAggregationInput = {
@@ -264,7 +264,7 @@ export type LeaderNotificationOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   body?: Prisma.SortOrder
   read?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.LeaderNotificationCountOrderByAggregateInput
   _avg?: Prisma.LeaderNotificationAvgOrderByAggregateInput
   _max?: Prisma.LeaderNotificationMaxOrderByAggregateInput
@@ -282,7 +282,7 @@ export type LeaderNotificationScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"LeaderNotification"> | string
   body?: Prisma.StringWithAggregatesFilter<"LeaderNotification"> | string
   read?: Prisma.IntNullableWithAggregatesFilter<"LeaderNotification"> | number | null
-  createdAt?: Prisma.StringNullableWithAggregatesFilter<"LeaderNotification"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"LeaderNotification"> | Date | string
 }
 
 export type LeaderNotificationCreateInput = {
@@ -292,7 +292,7 @@ export type LeaderNotificationCreateInput = {
   title: string
   body: string
   read?: number | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type LeaderNotificationUncheckedCreateInput = {
@@ -302,7 +302,7 @@ export type LeaderNotificationUncheckedCreateInput = {
   title: string
   body: string
   read?: number | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type LeaderNotificationUpdateInput = {
@@ -312,7 +312,7 @@ export type LeaderNotificationUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   read?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LeaderNotificationUncheckedUpdateInput = {
@@ -322,7 +322,7 @@ export type LeaderNotificationUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   read?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LeaderNotificationCreateManyInput = {
@@ -332,7 +332,7 @@ export type LeaderNotificationCreateManyInput = {
   title: string
   body: string
   read?: number | null
-  createdAt?: string | null
+  createdAt?: Date | string
 }
 
 export type LeaderNotificationUpdateManyMutationInput = {
@@ -342,7 +342,7 @@ export type LeaderNotificationUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   read?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LeaderNotificationUncheckedUpdateManyInput = {
@@ -352,7 +352,7 @@ export type LeaderNotificationUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   body?: Prisma.StringFieldUpdateOperationsInput | string
   read?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LeaderNotificationCountOrderByAggregateInput = {
@@ -447,7 +447,7 @@ export type $LeaderNotificationPayload<ExtArgs extends runtime.Types.Extensions.
     title: string
     body: string
     read: number | null
-    createdAt: string | null
+    createdAt: Date
   }, ExtArgs["result"]["leaderNotification"]>
   composites: {}
 }
@@ -877,7 +877,7 @@ export interface LeaderNotificationFieldRefs {
   readonly title: Prisma.FieldRef<"LeaderNotification", 'String'>
   readonly body: Prisma.FieldRef<"LeaderNotification", 'String'>
   readonly read: Prisma.FieldRef<"LeaderNotification", 'Int'>
-  readonly createdAt: Prisma.FieldRef<"LeaderNotification", 'String'>
+  readonly createdAt: Prisma.FieldRef<"LeaderNotification", 'DateTime'>
 }
     
 
@@ -1088,6 +1088,7 @@ export type LeaderNotificationCreateManyArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many LeaderNotifications.
    */
   data: Prisma.LeaderNotificationCreateManyInput | Prisma.LeaderNotificationCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1106,6 +1107,7 @@ export type LeaderNotificationCreateManyAndReturnArgs<ExtArgs extends runtime.Ty
    * The data used to create many LeaderNotifications.
    */
   data: Prisma.LeaderNotificationCreateManyInput | Prisma.LeaderNotificationCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

@@ -1594,6 +1594,7 @@ export type ClubCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * The data used to create many Clubs.
    */
   data: Prisma.ClubCreateManyInput | Prisma.ClubCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1612,6 +1613,7 @@ export type ClubCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many Clubs.
    */
   data: Prisma.ClubCreateManyInput | Prisma.ClubCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

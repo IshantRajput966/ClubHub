@@ -386,6 +386,7 @@ export type ClubMemberCreateOrConnectWithoutClubInput = {
 
 export type ClubMemberCreateManyClubInputEnvelope = {
   data: Prisma.ClubMemberCreateManyClubInput | Prisma.ClubMemberCreateManyClubInput[]
+  skipDuplicates?: boolean
 }
 
 export type ClubMemberUpsertWithWhereUniqueWithoutClubInput = {
@@ -1165,6 +1166,7 @@ export type ClubMemberCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many ClubMembers.
    */
   data: Prisma.ClubMemberCreateManyInput | Prisma.ClubMemberCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1183,6 +1185,7 @@ export type ClubMemberCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many ClubMembers.
    */
   data: Prisma.ClubMemberCreateManyInput | Prisma.ClubMemberCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

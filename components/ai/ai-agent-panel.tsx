@@ -33,9 +33,10 @@ export default function AIAgentPanel({ isMinimized = false, onToggleMinimize, on
 
   // Initialize LLM with fallback providers
   const getLLM = () => {
-    if (process.env.NEXT_PUBLIC_GROQ_API_KEY) {
+    const groqKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || (process.env as any).GROQ_API_KEY
+    if (groqKey) {
       return new ChatGroq({
-        apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
+        apiKey: groqKey,
         model: "llama-3.1-8b-instant",
         temperature: 0.7,
       })

@@ -960,6 +960,7 @@ export type LeaderSmsReplyCreateManyArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many LeaderSmsReplies.
    */
   data: Prisma.LeaderSmsReplyCreateManyInput | Prisma.LeaderSmsReplyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -978,6 +979,7 @@ export type LeaderSmsReplyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * The data used to create many LeaderSmsReplies.
    */
   data: Prisma.LeaderSmsReplyCreateManyInput | Prisma.LeaderSmsReplyCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

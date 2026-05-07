@@ -6,7 +6,4 @@ export default defineConfig({
   migrations: {
     path: "prisma/migrations",
   },
-  env: {
-    DATABASE_URL: "file:./dev.db",
-  },
 });

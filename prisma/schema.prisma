@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Post {
@@ -52,7 +52,7 @@ model Member {
   avatar   String?
   isActive Boolean  @default(true)
   password String?
-  phone    String?  // Twilio integration
+  phone    String?  @unique // Twilio integration
 }
 
 model Announcement {
@@ -136,7 +136,7 @@ model CompetitionRegistration {
   phone           String?
   teamName        String?
   status          String? @default("pending")
-  createdAt       String? @default("datetime('now')")
+  createdAt       DateTime @default(now())
 }
 
 model LeaderNotification {
@@ -146,7 +146,7 @@ model LeaderNotification {
   title       String
   body        String
   read        Int?    @default(0)
-  createdAt   String? @default("datetime('now')")
+  createdAt   DateTime @default(now())
 }
 
 model LeaderSmsReply {

@@ -1,21 +1,23 @@
-// lib/api-errors.ts
+type ApiErrorDetails = Record<string, unknown> | null
 
-/**
- * Standardized API error handling and response formatting for ClubHub.
- *
- * @param {string} message - The error message to return.
- * @param {number} status - The HTTP status code to return.
- * @param {Object} [errors] - Additional error details (optional).
- * @returns {Object} - The standardized error response object.
- */
-function apiErrorResponse(message, status, errors = null) {
-    return {
-        success: false,
-        message:
-            message || 'An unexpected error occurred.',
-        statusCode: status,
-        ...(errors ? { errors } : {}),
-    };
+type ApiErrorResponse = {
+    success: false
+    message: string
+    statusCode: number
+    errors?: Record<string, unknown>
 }
 
-module.exports = apiErrorResponse;
+function apiErrorResponse(
+    message: string,
+    status: number,
+    errors: ApiErrorDetails = null,
+): ApiErrorResponse {
+    return {
+        success: false,
+        message: message || "An unexpected error occurred.",
+        statusCode: status,
+        ...(errors ? { errors } : {}),
+    }
+}
+
+module.exports = apiErrorResponse

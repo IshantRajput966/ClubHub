@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       model: 'llama-3.3-70b-versatile',
       temperature: 0.7,
       maxTokens: 1024,
-      apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
+      apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY || process.env.GROQ_API_KEY,
     });
 
     // Fetch all clubs, EXCLUDING ones the user is already a member of

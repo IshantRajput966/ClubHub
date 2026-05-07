@@ -241,6 +241,7 @@ export type MemberWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   username?: string
   email?: string
+  phone?: string
   AND?: Prisma.MemberWhereInput | Prisma.MemberWhereInput[]
   OR?: Prisma.MemberWhereInput[]
   NOT?: Prisma.MemberWhereInput | Prisma.MemberWhereInput[]
@@ -250,8 +251,7 @@ export type MemberWhereUniqueInput = Prisma.AtLeast<{
   avatar?: Prisma.StringNullableFilter<"Member"> | string | null
   isActive?: Prisma.BoolFilter<"Member"> | boolean
   password?: Prisma.StringNullableFilter<"Member"> | string | null
-  phone?: Prisma.StringNullableFilter<"Member"> | string | null
-}, "id" | "username" | "email">
+}, "id" | "username" | "email" | "phone">
 
 export type MemberOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -1132,6 +1132,7 @@ export type MemberCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * The data used to create many Members.
    */
   data: Prisma.MemberCreateManyInput | Prisma.MemberCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1150,6 +1151,7 @@ export type MemberCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many Members.
    */
   data: Prisma.MemberCreateManyInput | Prisma.MemberCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

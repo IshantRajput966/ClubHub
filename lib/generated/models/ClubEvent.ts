@@ -406,6 +406,7 @@ export type ClubEventCreateOrConnectWithoutEventInput = {
 
 export type ClubEventCreateManyEventInputEnvelope = {
   data: Prisma.ClubEventCreateManyEventInput | Prisma.ClubEventCreateManyEventInput[]
+  skipDuplicates?: boolean
 }
 
 export type ClubEventUpsertWithWhereUniqueWithoutEventInput = {
@@ -453,6 +454,7 @@ export type ClubEventCreateOrConnectWithoutClubInput = {
 
 export type ClubEventCreateManyClubInputEnvelope = {
   data: Prisma.ClubEventCreateManyClubInput | Prisma.ClubEventCreateManyClubInput[]
+  skipDuplicates?: boolean
 }
 
 export type ClubEventUpsertWithWhereUniqueWithoutClubInput = {
@@ -1243,6 +1245,7 @@ export type ClubEventCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many ClubEvents.
    */
   data: Prisma.ClubEventCreateManyInput | Prisma.ClubEventCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1261,6 +1264,7 @@ export type ClubEventCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many ClubEvents.
    */
   data: Prisma.ClubEventCreateManyInput | Prisma.ClubEventCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
