@@ -216,6 +216,51 @@ async function main() {
     })
     console.log(`Created post by: ${post.author}`)
   }
+
+  // Create demo accounts
+  const DEMO_PASSWORD_HASH = "69108766585df23108cc47edb46ead3b79d081357cb810879a95c5c83bd5dbf2" // Hash of ClubHub@123
+  
+  const demoAccounts = [
+    { username: "student_demo", email: "student@clubhub.demo", role: "student", bio: "A curious student exploring clubs on campus.", password: DEMO_PASSWORD_HASH },
+    { username: "member_demo", email: "member@clubhub.demo", role: "member", bio: "Active club member participating in Tech Innovators.", password: DEMO_PASSWORD_HASH },
+    { username: "leader_demo", email: "leader@clubhub.demo", role: "leader", bio: "President of Tech Innovators club.", password: DEMO_PASSWORD_HASH },
+    { username: "faculty_demo", email: "faculty@clubhub.demo", role: "faculty", bio: "Faculty advisor overseeing student clubs.", password: DEMO_PASSWORD_HASH },
+    // Additional demo accounts
+    { username: "arjun_sharma", email: "arjun@clubhub.demo", role: "student", bio: "Engineering student.", password: DEMO_PASSWORD_HASH },
+    { username: "priya_verma", email: "priya@clubhub.demo", role: "student", bio: "Design enthusiast.", password: DEMO_PASSWORD_HASH },
+    { username: "sneha_patel", email: "sneha@clubhub.demo", role: "student", bio: "Avid reader.", password: DEMO_PASSWORD_HASH },
+    { username: "karan_singh", email: "karan@clubhub.demo", role: "student", bio: "Sports fan.", password: DEMO_PASSWORD_HASH },
+    { username: "ananya_iyer", email: "ananya@clubhub.demo", role: "member", bio: "Tech club member.", password: DEMO_PASSWORD_HASH },
+    { username: "vikram_nair", email: "vikram@clubhub.demo", role: "member", bio: "Music lover.", password: DEMO_PASSWORD_HASH },
+    { username: "aditya_kumar", email: "aditya@clubhub.demo", role: "leader", bio: "Debate club lead.", password: DEMO_PASSWORD_HASH },
+    { username: "meera_pillai", email: "meera@clubhub.demo", role: "leader", bio: "Dance club lead.", password: DEMO_PASSWORD_HASH },
+    { username: "dr_sharma", email: "sharma@clubhub.demo", role: "faculty", bio: "Professor of Science.", password: DEMO_PASSWORD_HASH },
+  ]
+
+  for (const account of demoAccounts) {
+    await prisma.member.upsert({
+      where: { username: account.username },
+      update: { password: account.password },
+      create: account,
+    })
+    console.log(`✅ Created/Updated demo account: ${account.username}`)
+  }
+
+  // Link demo accounts to Tech Innovators
+  if (techClub) {
+    await prisma.clubMember.upsert({
+      where: { clubId_username: { clubId: techClub.id, username: "leader_demo" } },
+      update: { role: "president" },
+      create: { clubId: techClub.id, username: "leader_demo", role: "president" },
+    })
+
+    await prisma.clubMember.upsert({
+      where: { clubId_username: { clubId: techClub.id, username: "member_demo" } },
+      update: { role: "member" },
+      create: { clubId: techClub.id, username: "member_demo", role: "member" },
+    })
+    console.log("✅ Linked demo accounts to Tech Innovators")
+  }
 }
 
 main()

@@ -5,6 +5,8 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
 async function seedDemoAccounts() {
+  const DEMO_PASSWORD_HASH = "69108766585df23108cc47edb46ead3b79d081357cb810879a95c5c83bd5dbf2" // Hash of ClubHub@123
+
   const accounts = [
     {
       username: "student_demo",
@@ -12,6 +14,7 @@ async function seedDemoAccounts() {
       role: "student",
       bio: "A curious student exploring clubs on campus.",
       avatar: null,
+      password: DEMO_PASSWORD_HASH,
     },
     {
       username: "member_demo",
@@ -19,6 +22,7 @@ async function seedDemoAccounts() {
       role: "member",
       bio: "Active club member participating in Tech Innovators.",
       avatar: null,
+      password: DEMO_PASSWORD_HASH,
     },
     {
       username: "leader_demo",
@@ -26,6 +30,7 @@ async function seedDemoAccounts() {
       role: "leader",
       bio: "President of Tech Innovators club.",
       avatar: null,
+      password: DEMO_PASSWORD_HASH,
     },
     {
       username: "faculty_demo",
@@ -33,6 +38,7 @@ async function seedDemoAccounts() {
       role: "faculty",
       bio: "Faculty advisor overseeing student clubs.",
       avatar: null,
+      password: DEMO_PASSWORD_HASH,
     },
   ]
 
