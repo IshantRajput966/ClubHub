@@ -24,9 +24,11 @@ export function EventCard({
   organizer, capacity, attendees, imageUrl, domain, onRsvp,
 }: EventCardProps) {
   const { src: autoImage, loading: imgLoading } = useAutoImage({ imageUrl, title, description, domain, id })
-  const [isLiked, setIsLiked]     = useState(false)
-  const [likeCount, setLikeCount] = useState(0)
-  const [rsvp, setRsvp]           = useState<"going" | "interested" | null>(null)
+  const currentUsername = typeof window !== "undefined" ? localStorage.getItem("username") : null
+  const initialRsvp = attendees.find(a => a.username === currentUsername)?.status as "going" | "interested" | null
+  
+  const [rsvp, setRsvp]           = useState<"going" | "interested" | null>(initialRsvp)
+  const [isSyncing, setIsSyncing] = useState(false)
 
   const attendeeCount = attendees.length
 
@@ -35,9 +37,31 @@ export function EventCard({
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1)
   }
 
-  const handleRsvp = (status: "going" | "interested") => {
-    setRsvp(rsvp === status ? null : status)
-    onRsvp?.(id, status)
+  const handleRsvp = async (status: "going" | "interested") => {
+    if (isSyncing) return
+    setIsSyncing(true)
+    
+    try {
+      const res = await fetch("/api/events/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId: id, status }),
+      })
+      
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || "Failed to RSVP")
+      }
+      
+      const result = await res.json()
+      setRsvp(result.status)
+      onRsvp?.(id, result.status)
+    } catch (err) {
+      console.error("RSVP Error:", err)
+      // Visual feedback for error could be added here
+    } finally {
+      setIsSyncing(false)
+    }
   }
 
   const formattedDate = (() => {
@@ -101,14 +125,21 @@ export function EventCard({
           {/* RSVP buttons */}
           <div className="flex gap-2 mt-auto">
             <button
+              disabled={isSyncing}
               onClick={() => handleRsvp("going")}
-              className={`flex-1 h-10 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${
+              className={`flex-1 h-10 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 relative overflow-hidden ${
                 rsvp === "going"
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]"
                   : "bg-white/[0.03] border border-white/5 text-gray-500 hover:text-white hover:bg-white/[0.08]"
               }`}
             >
-              {rsvp === "going" ? "Synchronized" : "Go Secure"}
+              <div className="absolute inset-0 flex items-center justify-center">
+                {isSyncing ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <span>{rsvp === "going" ? "Synchronized" : "Go Secure"}</span>
+                )}
+              </div>
             </button>
             <button
               onClick={() => handleRsvp("interested")}

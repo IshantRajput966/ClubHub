@@ -189,7 +189,7 @@ export default function LandingPage() {
           </h1>
           
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light animate-fade-in-up-delay-2">
-            The all-in-one neural platform to oversee events, scale memberships, and orchestrate communication effortlessly.
+            The all-in-one management platform to oversee events, scale memberships, and orchestrate communication effortlessly.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up-delay-3 w-full sm:w-auto">
@@ -258,19 +258,20 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Card 3: AI Preview */}
+            {/* Card 3: Community Pulse */}
             <div id="card-3" data-animate className={`animate-tilt relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent transition-all duration-1000 delay-300 ${isVisible['card-3'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <div className="h-full w-full rounded-[23px] bg-black/60 backdrop-blur-2xl p-8 border border-white/5 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-6 text-cyan-400 border border-cyan-500/30">
-                  <Brain size={24} />
+                  <Database size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">AI Assistant Preview</h3>
+                <h3 className="text-xl font-bold text-white mb-2">Member Profiles</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                  Draft announcements instantly and let neural engines match incoming students to your club's culture.
+                  Deeply integrated member directories allow you to find colleagues, view leadership roles, and connect instantly.
                 </p>
-                <div className="w-full h-32 rounded-xl bg-gradient-to-br from-white/5 to-transparent border border-cyan-500/20 p-4 overflow-hidden relative flex items-center justify-center">
-                   <Sparkles className="text-cyan-400 opacity-50 animate-pulse" size={32} />
-                   <div className="absolute inset-0 bg-cyan-500/10 blur-xl rounded-xl" />
+                <div className="w-full h-32 rounded-xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 p-4 overflow-hidden relative flex flex-col gap-2">
+                   <div className="w-full h-2 bg-white/10 rounded-full" />
+                   <div className="w-3/4 h-2 bg-white/10 rounded-full" />
+                   <div className="w-1/2 h-2 bg-white/10 rounded-full" />
                 </div>
               </div>
             </div>
@@ -305,44 +306,31 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── 4. AI INTEGRATION SHOWCASE ── */}
-      <section className="py-32 border-y border-white/5 bg-gradient-to-b from-[#010109] to-purple-900/10 relative">
+      {/* ── 4. ANALYTICS PREVIEW ── */}
+      <section className="py-32 border-y border-white/5 bg-gradient-to-b from-[#010109] to-blue-900/10 relative">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div id="ai-text" data-animate className={`transition-all duration-1000 ${isVisible['ai-text'] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-widest mb-6">
-               <Network size={14} /> Neural Engine Live
+             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+               <Database size={14} /> System Core
              </div>
-             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">Matchmaker AI<br/>Maps Your Destiny.</h2>
+             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">Data Visualization<br/>For Every Leader.</h2>
              <p className="text-gray-400 text-lg leading-relaxed mb-8">
-               Our proprietary intelligence layer analyzes student profiles to recommend perfect organizational fits. Less searching, more building.
+               Track club growth and financial performance with high-fidelity charts and automated reports. Professional-grade management for every society.
              </p>
-             <button className="flex items-center gap-2 text-white font-semibold hover:text-purple-400 transition-colors">
-               See Neural Logic <ArrowRight size={16} />
+             <button className="flex items-center gap-2 text-white font-semibold hover:text-blue-400 transition-colors">
+               Explore Governance <ArrowRight size={16} />
              </button>
           </div>
           
           <div id="ai-vis" data-animate className={`relative h-[400px] rounded-3xl border border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden transition-all duration-1000 delay-200 ${isVisible['ai-vis'] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-             {/* Visual Abstract Mapping */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-[1px] border-purple-500/50 flex items-center justify-center animate-pulse shadow-[0_0_30px_rgba(168,85,247,0.3)]">
-                <Brain className="text-purple-400" size={40} />
+             {/* Visual Abstract Analysis */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border-[1px] border-blue-500/30 flex items-center justify-center animate-pulse">
+                <LayoutDashboard className="text-blue-400" size={40} />
              </div>
-             <div className="absolute top-[20%] left-[20%] w-12 h-12 rounded-full border border-blue-500/50 bg-blue-500/10" />
-             <div className="absolute bottom-[20%] right-[20%] w-16 h-16 rounded-full border border-cyan-500/50 bg-cyan-500/10" />
-             {/* Connecting Lines (svg) */}
-             <svg className="absolute inset-0 w-full h-full opacity-30">
-               <path d="M 20% 20% Q 50% 50% 50% 50%" stroke="url(#grad1)" strokeWidth="2" fill="none" strokeDasharray="4 4"/>
-               <path d="M 50% 50% Q 80% 80% 80% 80%" stroke="url(#grad2)" strokeWidth="2" fill="none" strokeDasharray="4 4"/>
-               <defs>
-                 <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                   <stop offset="0%" stopColor="#3b82f6" />
-                   <stop offset="100%" stopColor="#a855f7" />
-                 </linearGradient>
-                 <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                   <stop offset="0%" stopColor="#a855f7" />
-                   <stop offset="100%" stopColor="#06b6d4" />
-                 </linearGradient>
-               </defs>
-             </svg>
+             <div className="absolute top-[20%] left-[20%] w-full h-[1px] bg-white/5" />
+             <div className="absolute top-[40%] left-[20%] w-full h-[1px] bg-white/5" />
+             <div className="absolute top-[60%] left-[20%] w-full h-[1px] bg-white/5" />
+             <div className="absolute top-[80%] left-[20%] w-full h-[1px] bg-white/5" />
           </div>
         </div>
       </section>
@@ -359,7 +347,7 @@ export default function LandingPage() {
               { text: "The event matching is flawless. I found my perfect robotics team in my first week without checking a single notice board.", author: "Priya Singh", role: "First-Year Member" }
             ].map((t, i) => (
               <div key={i} id={`test-${i}`} data-animate className={`p-8 rounded-[32px] bg-white/[0.03] border border-white/5 backdrop-blur-md transition-all duration-1000 ${isVisible[`test-${i}`] ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                 <div className="flex text-purple-400 mb-6"><Star size={16} /><Star size={16} /><Star size={16} /><Star size={16} /><Star size={16} /></div>
+                 <div className="flex text-purple-400 mb-6"><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /></div>
                  <p className="text-lg text-gray-300 leading-relaxed italic mb-8">"{t.text}"</p>
                  <div>
                    <p className="font-bold text-white">{t.author}</p>
@@ -381,7 +369,7 @@ export default function LandingPage() {
             <p className="text-gray-400 text-lg max-w-xl mx-auto">Authenticate into the system and explore the live demo environment.</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="max-w-md mx-auto">
             
             {/* Standard Login Panel */}
             <div className="p-[1px] rounded-[32px] bg-gradient-to-b from-white/10 to-transparent">
@@ -430,61 +418,6 @@ export default function LandingPage() {
                 </form>
               </div>
             </div>
-
-            {/* Live Command Center (Demo Accounts) */}
-            <div className="space-y-8">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <h3 className="text-lg font-bold">Live Command Center</h3>
-                <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-400 text-xs rounded-full animate-pulse font-mono tracking-widest">
-                  <span className="w-2 h-2 rounded-full bg-green-500" /> ONLINE
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto pr-2 scrollbar-hide">
-                {demoGroups.map((group) => (
-                  <div key={group.role} className="space-y-3">
-                    <div className="flex items-center gap-2 opacity-60">
-                  {group.icon}
-                      <span className="text-[10px] font-bold uppercase tracking-widest">{group.role}s</span>
-                    </div>
-                    <div className="space-y-2">
-                      {group.accounts.map((acc: any) => {
-                        const overridesStr = typeof window !== 'undefined' ? localStorage.getItem("profile_overrides") : null
-                        const overrides = overridesStr ? JSON.parse(overridesStr) : {}
-                        const override = overrides[acc.username]
-                        const label = override?.name || acc.label
-                        const pic = override?.pic
-
-                        return (
-                          <button 
-                            key={acc.username} onClick={() => {
-                              localStorage.setItem("originalUsername", acc.username);
-                              handleQuickLogin(acc.username);
-                            }} disabled={quickLoading !== null}
-                            className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 hover:border-white/10 transition-all text-left group"
-                          >
-                             <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${group.color} flex items-center justify-center font-bold text-xs shadow-inner overflow-hidden`}>
-                                {quickLoading === acc.username ? (
-                                  <Loader2 size={12} className="animate-spin" />
-                                ) : pic ? (
-                                  <img src={pic} alt="" className="w-full h-full object-cover" />
-                                ) : (
-                                  label[0]
-                                )}
-                             </div>
-                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-gray-200 truncate group-hover:text-white transition-colors">{label}</p>
-                                <p className="text-[10px] text-gray-600 truncate font-mono">{acc.username}</p>
-                             </div>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </div>
         </div>
       </section>

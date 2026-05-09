@@ -204,6 +204,7 @@ export default function NotificationProvider() {
         message: `You've been approved to join ${payload.clubName}`,
         clubId:  payload.clubId,
       })
+      window.dispatchEvent(new CustomEvent("newNotification", { detail: payload }))
 
       // Refresh page after short delay so sidebar updates
       setTimeout(() => window.location.reload(), 2500)
@@ -219,6 +220,7 @@ export default function NotificationProvider() {
     },
 
     onNewRequest: (payload) => {
+      window.dispatchEvent(new CustomEvent("newNotification", { detail: payload }))
       setPendingCount(prev => prev + 1)
       addToast({
         type:    "new_request",

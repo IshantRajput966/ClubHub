@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import { Sidebar } from "@/components/layout/sidebar"
 import { EventCard } from "@/components/events/event-card"
 import { CreateEventModal } from "@/components/events/create-event-modal"
-import { Calendar, Plus, ChevronLeft, ChevronRight } from "lucide-react"
+import { Calendar, Plus, ChevronLeft, ChevronRight, Menu } from "lucide-react"
+import { MobileHeader } from "@/components/layout/mobile-header"
 
 interface Event {
   id: string
@@ -187,6 +188,7 @@ export default function EventsPage() {
   const [error, setError]             = useState<string | null>(null)
   const [role, setRole]               = useState<string | null>(null)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   useEffect(() => {
     setRole(sessionStorage.getItem("role"))
@@ -239,14 +241,15 @@ export default function EventsPage() {
     : null
 
   return (
-    <div className="relative flex h-screen w-full overflow-hidden text-white">
-      <Sidebar />
+    <div className="relative flex h-screen w-full overflow-hidden text-white bg-[#02020a] flex-col lg:flex-row">
+      <MobileHeader onOpenSidebar={() => setIsSidebarOpen(true)} />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex-1 flex overflow-hidden z-0 bg-transparent">
 
         {/* ── Main content ── */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="max-w-3xl mx-auto p-6">
+        <div className="flex-1 overflow-y-auto pt-20 lg:pt-10 transition-all">
+          <div className="max-w-3xl mx-auto p-4 md:p-10">
 
             {/* Header */}
             <div className="flex items-center justify-between mb-10">
@@ -304,7 +307,7 @@ export default function EventsPage() {
         </div>
 
         {/* ── Right sidebar: Calendar ── */}
-        <div className="w-96 shrink-0 border-l border-white/5 overflow-y-auto p-6 scrollbar-hide"
+        <div className="hidden lg:block w-96 shrink-0 border-l border-white/5 overflow-y-auto p-6 scrollbar-hide"
              style={{ background: "rgba(0,0,0,0.2)", backdropFilter: "blur(24px)" }}>
           <div className="mb-6">
             <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">

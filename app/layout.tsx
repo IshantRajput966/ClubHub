@@ -4,6 +4,7 @@ import "./globals.css"
 import PersistentAIAgent from "@/components/ai/persistent-ai-agent"
 import NotificationProvider from "@/components/notifications/notification-provider"
 import { RoleSync } from "@/components/layout/role-sync"
+import { CommandPalette } from "@/components/layout/command-palette"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RoleSync />
         <PersistentAIAgent />
         <NotificationProvider />
+        <CommandPalette />
       </body>
     </html>
   )

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import { Sidebar } from "@/components/layout/sidebar"
 import { ClubCard } from "@/components/clubs/club-card"
 import { ClubRequestModal } from "@/components/clubs/club-request-modal"
-import { BookOpen, Plus, Search } from "lucide-react"
+import { BookOpen, Plus, Search, Menu } from "lucide-react"
+import { MobileHeader } from "@/components/layout/mobile-header"
 
 interface Club {
   id: string
@@ -29,6 +30,7 @@ export default function ClubsPage() {
   const [error, setError]               = useState<string | null>(null)
   const [userRole, setUserRole]         = useState("student")
   const [isModalOpen, setIsModalOpen]   = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const domains = ["all", "tech", "sports", "arts", "science", "cultural", "music"]
 
@@ -79,16 +81,16 @@ export default function ClubsPage() {
   }
 
   return (
-    <div className="relative flex h-screen w-full overflow-hidden text-white">
+    <div className="relative flex h-screen w-full overflow-hidden text-white bg-[#02020a] flex-col lg:flex-row">
+      <MobileHeader onOpenSidebar={() => setIsSidebarOpen(true)} />
+      
       {/* Sidebar container */}
-      <div className="w-64 shrink-0 h-screen z-10">
-        <Sidebar joinedClubs={userRole === "member" ? joinedClubs : []} />
-      </div>
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} joinedClubs={userRole === "member" ? joinedClubs : []} />
 
       <div className="flex-1 flex flex-col overflow-hidden z-0">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-10 py-8 border-b border-white/5"
+        <div className="flex flex-col sm:flex-row items-center justify-between px-6 md:px-10 py-8 pt-20 lg:pt-8 border-b border-white/5 transition-all"
              style={{ background: "rgba(0,0,0,0.2)", backdropFilter: "blur(12px)" }}>
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
@@ -120,7 +122,7 @@ export default function ClubsPage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="px-10 py-6 border-b border-white/5"
+        <div className="px-6 md:px-10 py-6 border-b border-white/5"
              style={{ background: "rgba(0,0,0,0.1)", backdropFilter: "blur(8px)" }}>
           <div className="max-w-5xl mx-auto space-y-6">
             <div className="relative group">
@@ -153,7 +155,7 @@ export default function ClubsPage() {
 
         {/* Clubs Grid */}
         <div className="flex-1 overflow-y-auto">
-          <div className="max-w-6xl mx-auto p-8">
+          <div className="max-w-6xl mx-auto p-4 md:p-8">
             {error && (
               <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-6 text-red-300">{error}</div>
             )}

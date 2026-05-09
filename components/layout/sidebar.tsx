@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import {
   LayoutDashboard, Users, Calendar, Wallet, Globe,
   Bell, UserPlus, Compass, BarChart2, ClipboardList,
-  BookMarked, Crown, Shield, Sparkles, LogOut,
+  BookMarked, Crown, Shield, Sparkles, LogOut, X, Menu
 } from "lucide-react"
 
 interface NavItem {
@@ -21,16 +21,31 @@ interface JoinedClub {
   logoUrl?: string
 }
 
-export function Sidebar({ joinedClubs = [] }: { joinedClubs?: JoinedClub[] }) {
+export function Sidebar({ 
+  joinedClubs = [], 
+  isOpen = false, 
+  onClose = () => {} 
+}: { 
+  joinedClubs?: JoinedClub[], 
+  isOpen?: boolean, 
+  onClose?: () => void 
+}) {
   const pathname = usePathname()
   const [role, setRole] = useState("student")
   const [username, setUsername] = useState<string | null>(null)
   const [profilePic, setProfilePic] = useState<string | null>(null)
   const [myClubs, setMyClubs] = useState<JoinedClub[]>(joinedClubs)
   const [pending, setPending] = useState(0)
+  const [pulse, setPulse]     = useState(false)
   const currentLogo = "/logo-1.jpg.jpeg"
 
    useEffect(() => {
+    const triggerPulse = () => {
+      setPulse(true)
+      setTimeout(() => setPulse(false), 3000)
+    }
+    const handleNewNotif = () => triggerPulse()
+
     const syncProfile = () => {
       const savedRole = sessionStorage.getItem("role") ?? "student"
       const savedUser = localStorage.getItem("username") || sessionStorage.getItem("username")
@@ -82,17 +97,21 @@ export function Sidebar({ joinedClubs = [] }: { joinedClubs?: JoinedClub[] }) {
           .catch(() => { })
       }
       pollPending()
-      const interval = setInterval(pollPending, 10000)
+      const intervalId = setInterval(pollPending, 10000)
       return () => {
-        clearInterval(interval)
+        clearInterval(intervalId)
         window.removeEventListener("profileUpdate", syncProfile)
         window.removeEventListener("storage", syncProfile)
+        window.removeEventListener("newNotification", handleNewNotif)
       }
     }
+
+    window.addEventListener("newNotification", handleNewNotif)
 
     return () => {
       window.removeEventListener("profileUpdate", syncProfile)
       window.removeEventListener("storage", syncProfile)
+      window.removeEventListener("newNotification", handleNewNotif)
     }
   }, [])
 
@@ -146,9 +165,21 @@ export function Sidebar({ joinedClubs = [] }: { joinedClubs?: JoinedClub[] }) {
 
   return (
     <div
-      className="flex flex-col h-screen pt-0 px-4 pb-4 text-white w-64 border-r border-white/5 sticky top-0 overflow-y-auto scrollbar-hide"
-      style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(24px)" }}
+      className={`
+        flex flex-col h-screen pt-0 px-4 pb-4 text-white w-64 border-r border-white/5 
+        fixed inset-y-0 left-0 z-[110] lg:sticky lg:z-0 lg:flex 
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0 shadow-[0_0_50px_rgba(0,0,0,0.8)]" : "-translate-x-full lg:translate-x-0"}
+      `}
+      style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(24px)" }}
     >
+      {/* ── Mobile Close Button ── */}
+      <button 
+        onClick={onClose}
+        className="lg:hidden absolute top-4 right-4 p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white border border-white/10"
+      >
+        <X size={20} />
+      </button>
       {/* ── Logo ── */}
       <style>{`
         @keyframes float-logo {
@@ -182,7 +213,14 @@ export function Sidebar({ joinedClubs = [] }: { joinedClubs?: JoinedClub[] }) {
         <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest px-3 mb-1">Navigation</p>
         {baseItems
           .filter(item => !(role === 'faculty' && item.name === 'Matchmaker'))
-          .map(item => <NavLink key={item.href + item.name} item={item} pathname={pathname} />)}
+          .map(item => (
+            <NavLink 
+              key={item.href + item.name} 
+              item={item} 
+              pathname={pathname} 
+              pulse={item.name === "Announcements" && pulse}
+            />
+          ))}
 
         {(extrasMap[role] ?? []).length > 0 && (
           <>
@@ -259,7 +297,12 @@ export function Sidebar({ joinedClubs = [] }: { joinedClubs?: JoinedClub[] }) {
 
 // ── NavLink ──────────────────────────────────────────────────────────────────
 
-function NavLink({ item, pathname, badge = 0 }: { item: NavItem; pathname: string; badge?: number }) {
+function NavLink({ item, pathname, badge = 0, pulse = false }: { 
+  item: NavItem; 
+  pathname: string; 
+  badge?: number; 
+  pulse?: boolean 
+}) {
   const Icon = item.icon
   const active = pathname === item.href
 
@@ -273,6 +316,9 @@ function NavLink({ item, pathname, badge = 0 }: { item: NavItem; pathname: strin
     >
       <Icon size={18} className={`transition-colors duration-300 ${active ? "text-purple-400" : "text-gray-500 group-hover:text-purple-300"}`} />
       <span className="flex-1 tracking-wide">{item.name}</span>
+      {pulse && (
+        <span className="absolute right-3 w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)] animate-pulse" />
+      )}
       {badge > 0 && (
         <span className="bg-gradient-to-r from-red-600 to-rose-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shrink-0 shadow-lg animate-pulse">
           {badge > 9 ? "9+" : badge}

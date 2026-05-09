@@ -5,7 +5,8 @@ import { Sidebar } from "@/components/layout/sidebar"
 import CreatePostModal from "@/components/dashboard/create-post-modal"
 import EditProfileModal from "@/components/profile/edit-profile-modal"
 import PostCard from "@/components/dashboard/post-card"
-import { Edit2, Share2, MapPin, Calendar } from "lucide-react"
+import { Edit2, Share2, MapPin, Calendar, Menu } from "lucide-react"
+import { MobileHeader } from "@/components/layout/mobile-header"
 
 export default function ProfilePage() {
   const [username, setUsername] = useState("")
@@ -16,6 +17,7 @@ export default function ProfilePage() {
   const [openEditModal, setOpenEditModal] = useState(false)
   const [posts, setPosts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   useEffect(() => {
     const storedUser = localStorage.getItem("username") || "Student User"
@@ -95,18 +97,19 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="relative flex h-screen w-full overflow-hidden text-white font-sans">
-      <Sidebar />
+    <div className="relative flex h-screen w-full overflow-hidden text-white font-sans flex-col lg:flex-row bg-[#02020a]">
+      <MobileHeader onOpenSidebar={() => setIsSidebarOpen(true)} />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide z-0">
+      <div className="flex-1 overflow-y-auto scrollbar-hide z-0 pt-20 lg:pt-0">
         {/* Ambient Top Glow */}
         <div className="h-64 bg-gradient-to-b from-purple-600/20 to-transparent absolute top-0 left-0 right-0 pointer-events-none" />
 
-        <div className="max-w-5xl mx-auto p-10 relative">
+        <div className="max-w-5xl mx-auto p-4 md:p-10 relative">
           
           {/* Profile Section */}
           <div className="group relative p-1 rounded-[31px] bg-gradient-to-b from-white/10 to-transparent transition-all mb-12 shadow-2xl">
-            <div className="h-full w-full rounded-[30px] bg-black/40 backdrop-blur-3xl p-10 border border-white/5 shadow-inner">
+            <div className="h-full w-full rounded-[30px] bg-black/40 backdrop-blur-3xl p-6 md:p-10 border border-white/5 shadow-inner">
               <div className="flex flex-col md:flex-row md:items-center gap-10">
 
                 {/* Avatar */}

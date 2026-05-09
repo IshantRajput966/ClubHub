@@ -9,6 +9,7 @@ import Link from "next/link"
 import { Users, ChevronRight, Crown, Shield, Plus, Bell, Calendar as CalendarIcon, ClipboardList, MessageSquare } from "lucide-react"
 import { CreateEventModal } from "@/components/events/create-event-modal"
 import { CreateAnnouncementModal } from "@/components/announcements/create-announcement-modal"
+import { MobileHeader } from "@/components/layout/mobile-header"
 
 interface Club {
   id: string
@@ -185,6 +186,7 @@ function LeaderSmsFeed() {
 }
 
 export default function Dashboard() {
+  const [isSidebarOpen, setIsSidebarOpen]     = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [role, setRole]         = useState<string | null>(null)
   const [isEventModalOpen, setIsEventModalOpen] = useState(false)
@@ -218,17 +220,14 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="relative h-screen w-full overflow-hidden flex text-white">
-      {/* Sidebar background overlay for blending */}
-      <div className="w-64 fixed h-screen bg-black/20 border-r border-white/5 z-0 pointer-events-none" />
+    <div className="relative h-screen w-full overflow-hidden flex flex-col lg:flex-row text-white bg-[#02020a]">
+      <MobileHeader onOpenSidebar={() => setIsSidebarOpen(true)} />
+      
+      {/* Sidebar container */}
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        {/* Sidebar container */}
-        <div className="w-64 shrink-0 h-screen z-10">
-          <Sidebar />
-        </div>
-
-        {/* Main feed */}
-        <div className="flex-1 overflow-y-auto p-10 scrollbar-hide">
+      {/* Main feed */}
+      <div className="flex-1 overflow-y-auto p-4 md:p-10 pt-20 lg:pt-10 scrollbar-hide">
           <div className="max-w-4xl mx-auto">
             {role === "leader" && (
               <LeaderQuickActions
@@ -244,8 +243,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Insights panel */}
-        <div className="w-80 shrink-0 h-screen bg-black/20 border-l border-white/5 z-10">
+        {/* Insights panel - Hidden on mobile */}
+        <div className="hidden lg:block w-80 shrink-0 h-screen bg-black/20 border-l border-white/5 z-10 transition-all">
           <InsightsPanel />
         </div>
 
